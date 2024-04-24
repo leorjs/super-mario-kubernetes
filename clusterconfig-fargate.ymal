@@ -1,0 +1,22 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: my-fargate
+  region: us-east-1
+
+vpc:
+    subnets:
+        private:
+            us-east-1a: {}  # `eksctl` creará una subnet privada en us-east-1a automáticamente
+            us-east-1b: {}  # `eksctl` creará una subnet privada en us-east-1b automáticamente
+        public:
+            us-east-1a: {}  # `eksctl` creará una subnet pública en us-east-1a automáticamente
+            us-east-1b: {}  # `eksctl` creará una subnet pública en us-east-1b automáticamente
+
+fargateProfiles:
+  - name: fp-default
+    selectors:
+      - namespace: default
+      - namespace: kube-system
+
